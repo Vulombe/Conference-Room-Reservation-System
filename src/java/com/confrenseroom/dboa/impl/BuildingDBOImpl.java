@@ -33,7 +33,8 @@ public class BuildingDBOImpl implements CRUD<Building> {
 
     @Override
     public Building read(String name) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Building b = null;
+        return b;
     }
 
     @Override
