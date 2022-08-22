@@ -15,11 +15,17 @@ import java.util.List;
  */
 public class UserDBOImpl implements CRUD<User> {
 
+    private PreparedStatement ps = null;
+    private ResultSet rs = null;
+
+    public UserDBOImpl() {
+    }
+
     @Override
     public boolean create(User u) {
         boolean isCreated = false;
         try {
-            PreparedStatement ps = DBConnector.getpStament("INSERT INTO USER(userid,firstname,lastname,department,"
+            ps = DBConnector.getpStament("INSERT INTO USER(userid,firstname,lastname,department,"
                     + "cellnumber, emailaddress, password)VALUES(?,?,?,?,?,?,?)");
             ps.setString(1, u.getUserID());
             ps.setString(2, u.getFirstname());
@@ -28,11 +34,11 @@ public class UserDBOImpl implements CRUD<User> {
             ps.setString(5, u.getCellNumber());
             ps.setString(6, u.getEmailaddress());
             ps.setString(7, u.getPassword());
-            if (ps.executeUpdate() > 1) {
-                isCreated = true;
-            }
+            isCreated = ps.executeUpdate() > 0;
         } catch (ClassNotFoundException | SQLException ex) {
             System.out.println(ex.getMessage());
+        } finally {
+            DBConnector.closeStreams(ps, rs);
         }
         return isCreated;
     }
@@ -42,10 +48,10 @@ public class UserDBOImpl implements CRUD<User> {
         User user = null;
         try {
             String sqlstatement = "SELECT * FROM USER WHERE EMAILADDRESS=?";
-            PreparedStatement ps = DBConnector.getpStament(sqlstatement);
+            ps = DBConnector.getpStament(sqlstatement);
             ps.setString(1, email);
-            ResultSet rs = ps.executeQuery();
-             if (rs.next()) {
+            rs = ps.executeQuery();
+            if (rs.next()) {
                 String userID = rs.getString(1);
                 String firstname = rs.getString(2);
                 String lastname = rs.getString(3);
@@ -57,18 +63,49 @@ public class UserDBOImpl implements CRUD<User> {
             }
         } catch (ClassNotFoundException | SQLException ex) {
             System.out.println(ex.getMessage());
+        } finally {
+            DBConnector.closeStreams(ps, rs);
         }
         return user;
     }
 
     @Override
-    public User update(String email) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public boolean update(User user) {
+        boolean updated = false;
+        String statment = "update user set userid=?, firstname=?,lastname=?, department=?,cellnumber=?, emailaddress=?,password=? where emailaddress=?";
+        try {
+            ps = DBConnector.getpStament(statment);
+            ps.setString(1, user.getUserID());
+            ps.setString(2, user.getFirstname());
+            ps.setString(3, user.getLastname());
+            ps.setString(4, user.getDepartment());
+            ps.setString(5, user.getCellNumber());
+            ps.setString(6, user.getEmailaddress());
+            ps.setString(7, user.getPassword());
+            ps.setString(8, user.getEmailaddress());
+            updated = ps.executeUpdate() > 0;
+        } catch (ClassNotFoundException | SQLException ex) {
+            System.out.println(ex.getMessage());
+        } finally {
+            DBConnector.closeStreams(ps, rs);
+        }
+        return updated;
     }
 
     @Override
-    public boolean delete(String name) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public boolean delete(String email) {
+        boolean deleted = false;
+        try {
+            String sql = "DELETE FROM USER where emailaddress=?";
+            ps = DBConnector.getpStament(sql);
+            ps.setString(1, email);
+            deleted = ps.executeUpdate() > 0;
+        } catch (ClassNotFoundException | SQLException ex) {
+            System.out.println("Error: " + ex.getMessage());
+        } finally {
+            DBConnector.closeStreams(ps, rs);
+        }
+        return deleted;
     }
 
     @Override
@@ -76,7 +113,7 @@ public class UserDBOImpl implements CRUD<User> {
         List<User> ulist = new ArrayList<>();
         try {
             String sqlstatement = "SELECT * FROM USER";
-            ResultSet rs = DBConnector.getpStament(sqlstatement).executeQuery();
+            rs = DBConnector.getpStament(sqlstatement).executeQuery();
             while (rs.next()) {
                 String userID = rs.getString(1);
                 String firstname = rs.getString(2);
@@ -86,11 +123,12 @@ public class UserDBOImpl implements CRUD<User> {
                 String emailaddress = rs.getString(6);
                 String password = rs.getString(7);
                 User user = new User(userID, firstname, lastname, department, cellNumber, emailaddress, password);
-
                 ulist.add(user);
             }
         } catch (ClassNotFoundException | SQLException ex) {
             System.out.println(ex.getMessage());
+        } finally {
+            DBConnector.closeStreams(ps, rs);
         }
         return ulist;
     }

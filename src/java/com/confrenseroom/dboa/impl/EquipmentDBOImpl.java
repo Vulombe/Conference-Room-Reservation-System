@@ -15,61 +15,96 @@ import java.util.List;
  */
 public class EquipmentDBOImpl implements CRUD<Equipment> {
 
+    private PreparedStatement ps = null;
+    private ResultSet rs = null;
+
+    public EquipmentDBOImpl() {
+    }
+
     @Override
     public boolean create(Equipment e) {
         boolean isCreated = false;
         try {
-           PreparedStatement ps = DBConnector.getpStament("INSERT INTO EQUIPMENT(name)VALUES(?)");
+            ps = DBConnector.getpStament("INSERT INTO EQUIPMENT(name)VALUES(?)");
             ps.setString(1, e.getEquipmntName());
-           if(ps.executeUpdate()>1)
-               isCreated = true;
+            if (ps.executeUpdate() > 1) {
+                isCreated = true;
+            }
         } catch (ClassNotFoundException | SQLException ex) {
             System.out.println(ex.getMessage());
+        } finally {
+            DBConnector.closeStreams(ps, rs);
         }
         return isCreated;
     }
 
     @Override
     public Equipment read(String name) {
-           Equipment eqmnt = null;
+        Equipment eqmnt = null;
         try {
             String sqlstatement = "SELECT * FROM EQUIPMENT";
-            ResultSet rs = DBConnector.getpStament(sqlstatement).executeQuery();
-            if(rs.next())
-            {
-                 eqmnt = new Equipment(rs.getInt(1),rs.getString(2));
+            rs = DBConnector.getpStament(sqlstatement).executeQuery();
+            if (rs.next()) {
+                eqmnt = new Equipment(rs.getInt(1), rs.getString(2));
             }
         } catch (ClassNotFoundException | SQLException ex) {
             System.out.println(ex.getMessage());
+        } finally {
+            DBConnector.closeStreams(ps, rs);
         }
         return eqmnt;
     }
 
     @Override
-    public Equipment update(String name) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public boolean update(Equipment eqpmnt) {
+        boolean updated = false;
+        String statment = "update equipment set equipID=?, name=? where name=?";
+        try {
+            ps = DBConnector.getpStament(statment);
+            ps.setInt(1, eqpmnt.getEquipmentID());
+            ps.setString(2, eqpmnt.getEquipmntName());
+            ps.setString(3, eqpmnt.getEquipmntName());
+            updated = ps.executeUpdate() > 0;
+        } catch (ClassNotFoundException | SQLException ex) {
+            System.out.println(ex.getMessage());
+        } finally {
+            DBConnector.closeStreams(ps, rs);
+        }
+        return updated;
     }
 
     @Override
     public boolean delete(String name) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        boolean deleted = false;
+        try {
+            String sql = "DELETE FROM EQUIPMENT where name=?";
+            ps = DBConnector.getpStament(sql);
+            ps.setString(1, name);
+            deleted = ps.executeUpdate() > 0;
+        } catch (ClassNotFoundException | SQLException ex) {
+            System.out.println("Error: " + ex.getMessage());
+        } finally {
+            DBConnector.closeStreams(ps, rs);
+        }
+        return deleted;
     }
 
     @Override
     public List<Equipment> list() {
-           List<Equipment> elist = new ArrayList<>();
+        List<Equipment> elist = new ArrayList<>();
         try {
             String sqlstatement = "SELECT * FROM EQUIPMENT";
-            ResultSet rs = DBConnector.getpStament(sqlstatement).executeQuery();
-            while(rs.next())
-            {
-                Equipment eqmnt = new Equipment(rs.getInt(1),rs.getString(2));
+            rs = DBConnector.getpStament(sqlstatement).executeQuery();
+            while (rs.next()) {
+                Equipment eqmnt = new Equipment(rs.getInt(1), rs.getString(2));
                 elist.add(eqmnt);
             }
         } catch (ClassNotFoundException | SQLException ex) {
             System.out.println(ex.getMessage());
+        } finally {
+            DBConnector.closeStreams(ps, rs);
         }
         return elist;
     }
-    
+
 }

@@ -16,11 +16,17 @@ import java.util.List;
  */
 public class RoomDBOImpl implements CRUD<Room> {
 
+    private PreparedStatement ps = null;
+    private ResultSet rs = null;
+
+    public RoomDBOImpl() {
+    }
+
     @Override
     public boolean create(Room r) {
         boolean isCreated = false;
         try {
-            PreparedStatement ps = DBConnector.getpStament("INSERT INTO ROOM(name,capacity,status,equipID)VALUES(?,?,?,?)");
+            ps = DBConnector.getpStament("INSERT INTO ROOM(name,capacity,status,equipID)VALUES(?,?,?,?)");
             ps.setString(1, r.getRoomName());
             ps.setInt(2, r.getCapacity());
             ps.setString(3, r.getStatus().toString());
@@ -30,6 +36,8 @@ public class RoomDBOImpl implements CRUD<Room> {
             }
         } catch (ClassNotFoundException | SQLException ex) {
             System.out.println(ex.getMessage());
+        } finally {
+            DBConnector.closeStreams(ps, rs);
         }
         return isCreated;
 
@@ -37,69 +45,93 @@ public class RoomDBOImpl implements CRUD<Room> {
 
     @Override
     public Room read(String name) {
-         Room room = null;
+        Room room = null;
         try {
             String sqlstatement = "SELECT * FROM ROOM";
-            ResultSet rs = DBConnector.getpStament(sqlstatement).executeQuery();
-            if(rs.next())
-            {
+            rs = DBConnector.getpStament(sqlstatement).executeQuery();
+            if (rs.next()) {
                 String roomName = rs.getString(2);
-                int capacity= rs.getInt(3);
+                int capacity = rs.getInt(3);
                 Status status;
                 String getstatus = rs.getString(4);
-                if(getstatus.equalsIgnoreCase("AVAILABLE"))
-                {
+                if (getstatus.equalsIgnoreCase("AVAILABLE")) {
                     status = Status.AVAILABLE;
-                }else
-                {
+                } else {
                     status = Status.NOTAVAILABLE;
                 }
                 int equipmentID = rs.getInt(5);
-                 room = new Room(roomName,capacity,status,equipmentID);
-             
+                room = new Room(roomName, capacity, status, equipmentID);
+
             }
         } catch (ClassNotFoundException | SQLException ex) {
             System.out.println(ex.getMessage());
+        } finally {
+            DBConnector.closeStreams(ps, rs);
         }
         return room;
     }
 
     @Override
-    public Room update(String name) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public boolean update(Room room) {
+        boolean updated = false;
+        String statment = "update room set roomID=?, name=?, capacity=?, status=? where name=?";
+        try {
+            ps = DBConnector.getpStament(statment);
+            ps.setInt(1, room.getRoomID());
+            ps.setString(2, room.getRoomName());
+            ps.setInt(3, room.getCapacity());
+            ps.setString(4, room.getStatus().toString());
+            ps.setString(5, room.getRoomName());
+            updated = ps.executeUpdate() > 0;
+        } catch (ClassNotFoundException | SQLException ex) {
+            System.out.println(ex.getMessage());
+        } finally {
+            DBConnector.closeStreams(ps, rs);
+        }
+        return updated;
     }
 
     @Override
     public boolean delete(String name) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        boolean deleted = false;
+        try {
+            String sql = "DELETE FROM ROOM where name=?";
+            ps = DBConnector.getpStament(sql);
+            ps.setString(1, name);
+            deleted = ps.executeUpdate() > 0;
+        } catch (ClassNotFoundException | SQLException ex) {
+            System.out.println("Error: " + ex.getMessage());
+        } finally {
+            DBConnector.closeStreams(ps, rs);
+        }
+        return deleted;
     }
 
     @Override
     public List<Room> list() {
-              List<Room> rlist = new ArrayList<>();
+        List<Room> rlist = new ArrayList<>();
         try {
             String sqlstatement = "SELECT * FROM ROOM";
-            ResultSet rs = DBConnector.getpStament(sqlstatement).executeQuery();
-            while(rs.next())
-            {
+            rs = DBConnector.getpStament(sqlstatement).executeQuery();
+            while (rs.next()) {
                 //Room(
                 String roomName = rs.getString(2);
-                int capacity= rs.getInt(3);
+                int capacity = rs.getInt(3);
                 Status status;
                 String getstatus = rs.getString(4);
-                if(getstatus.equalsIgnoreCase("AVAILABLE"))
-                {
+                if (getstatus.equalsIgnoreCase("AVAILABLE")) {
                     status = Status.AVAILABLE;
-                }else
-                {
+                } else {
                     status = Status.NOTAVAILABLE;
                 }
                 int equipmentID = rs.getInt(5);
-                Room room = new Room(roomName,capacity,status,equipmentID);
+                Room room = new Room(roomName, capacity, status, equipmentID);
                 rlist.add(room);
             }
         } catch (ClassNotFoundException | SQLException ex) {
             System.out.println(ex.getMessage());
+        } finally {
+            DBConnector.closeStreams(ps, rs);
         }
         return rlist;
     }

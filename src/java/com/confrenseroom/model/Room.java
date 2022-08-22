@@ -19,6 +19,14 @@ public class Room {
         this.equipmentID = equipmentID;
     }
 
+    public Room(int roomID, String roomName, int capacity, Status status, int equipmentID) {
+        this.roomID = roomID;
+        this.roomName = roomName;
+        this.capacity = capacity;
+        this.status = status;
+        this.equipmentID = equipmentID;
+    }
+
     public int getRoomID() {
         return roomID;
     }

@@ -14,6 +14,12 @@ public class Building {
         this.roomID = roomID;
     }
 
+    public Building(int id, String buildingName, int roomID) {
+        this.id = id;
+        this.buildingName = buildingName;
+        this.roomID = roomID;
+    }
+
     public int getId() {
         return id;
     }
