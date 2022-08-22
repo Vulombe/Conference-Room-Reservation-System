@@ -6,6 +6,7 @@ import com.confrenseroom.model.Building;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -49,7 +50,20 @@ public class BuildingDBOImpl implements CRUD<Building> {
 
     @Override
     public List<Building> list() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        List<Building> blist = new ArrayList<>();
+        try {
+            String sqlstatement = "SELECT * FROM BUILDING";
+            ResultSet rs = DBConnector.getpStament(sqlstatement).executeQuery();
+            while(rs.next())
+            {
+                Building bld = new Building(rs.getString(2),rs.getInt(3));
+                blist.add(bld);
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+
+        return blist;
     }
 
 }

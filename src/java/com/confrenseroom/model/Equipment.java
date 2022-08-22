@@ -8,7 +8,8 @@ public class Equipment {
     private int equipmentID;
     private String equipmntName;
 
-    public Equipment(String equipmntName) {
+    public Equipment(int equipmentID, String equipmntName) {
+        this.equipmentID = equipmentID;
         this.equipmntName = equipmntName;
     }
 

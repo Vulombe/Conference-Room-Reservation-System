@@ -6,6 +6,7 @@ import com.confrenseroom.model.Equipment;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -30,7 +31,18 @@ public class EquipmentDBOImpl implements CRUD<Equipment> {
 
     @Override
     public Equipment read(String name) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+           Equipment eqmnt = null;
+        try {
+            String sqlstatement = "SELECT * FROM EQUIPMENT";
+            ResultSet rs = DBConnector.getpStament(sqlstatement).executeQuery();
+            if(rs.next())
+            {
+                 eqmnt = new Equipment(rs.getInt(1),rs.getString(2));
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return eqmnt;
     }
 
     @Override
@@ -45,7 +57,19 @@ public class EquipmentDBOImpl implements CRUD<Equipment> {
 
     @Override
     public List<Equipment> list() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+           List<Equipment> elist = new ArrayList<>();
+        try {
+            String sqlstatement = "SELECT * FROM EQUIPMENT";
+            ResultSet rs = DBConnector.getpStament(sqlstatement).executeQuery();
+            while(rs.next())
+            {
+                Equipment eqmnt = new Equipment(rs.getInt(1),rs.getString(2));
+                elist.add(eqmnt);
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return elist;
     }
     
 }
