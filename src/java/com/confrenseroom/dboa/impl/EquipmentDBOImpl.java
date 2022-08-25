@@ -19,9 +19,6 @@ public class EquipmentDBOImpl implements CRUD<Equipment> {
     private PreparedStatement ps = null;
     private ResultSet rs = null;
 
-    public EquipmentDBOImpl() {
-    }
-
     @Override
     public boolean create(Equipment e) {
         boolean isCreated = false;

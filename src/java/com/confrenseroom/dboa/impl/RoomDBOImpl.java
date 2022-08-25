@@ -19,9 +19,6 @@ public class RoomDBOImpl implements CRUD<Room> {
     private PreparedStatement ps = null;
     private ResultSet rs = null;
 
-    public RoomDBOImpl() {
-    }
-
     @Override
     public boolean create(Room r) {
         boolean isCreated = false;

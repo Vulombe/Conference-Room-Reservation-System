@@ -18,9 +18,6 @@ public class BuildingDBOImpl implements CRUD<Building> {
     private PreparedStatement ps = null;
     private ResultSet rs = null;
 
-    public BuildingDBOImpl() {
-    }
-
     @Override
     public boolean create(Building b) {
         boolean isCreated = false;

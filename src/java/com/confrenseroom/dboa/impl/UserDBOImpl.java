@@ -17,9 +17,6 @@ public class UserDBOImpl implements CRUD<User> {
     private PreparedStatement ps = null;
     private ResultSet rs = null;
 
-    public UserDBOImpl() {
-    }
-
     @Override
     public boolean create(User u) {
         boolean isCreated = false;
