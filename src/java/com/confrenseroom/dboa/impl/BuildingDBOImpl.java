@@ -25,12 +25,9 @@ public class BuildingDBOImpl implements CRUD<Building> {
     public boolean create(Building b) {
         boolean isCreated = false;
         try {
-            ps = DBConnector.getpStament("INSERT INTO BUILDING(name,roomID)VALUES(?,?)");
+            ps = DBConnector.getpStament("INSERT INTO BUILDING(name)VALUES(?)");
             ps.setString(1, b.getBuildingName());
-            ps.setInt(2, b.getRoomID());
-            if (ps.executeUpdate() > 1) {
-                isCreated = true;
-            }
+            isCreated = ps.executeUpdate() > 0;
         } catch (ClassNotFoundException | SQLException ex) {
             System.out.println(ex.getMessage());
         } finally {
@@ -46,7 +43,7 @@ public class BuildingDBOImpl implements CRUD<Building> {
             String sqlstatement = "SELECT * FROM BUILDING";
             rs = DBConnector.getpStament(sqlstatement).executeQuery();
             if (rs.next()) {
-                bld = new Building(rs.getString(2), rs.getInt(3));
+                bld = new Building(rs.getInt(1),rs.getString(2));
             }
         } catch (ClassNotFoundException | SQLException ex) {
             System.out.println(ex.getMessage());
@@ -64,7 +61,6 @@ public class BuildingDBOImpl implements CRUD<Building> {
             ps = DBConnector.getpStament(statment);
             ps.setInt(1, name.getId());
             ps.setString(2, name.getBuildingName());
-            ps.setInt(3, name.getRoomID());
             ps.setString(4, name.getBuildingName());
             updated = ps.executeUpdate() > 0;
         } catch (ClassNotFoundException | SQLException ex) {
@@ -99,7 +95,7 @@ public class BuildingDBOImpl implements CRUD<Building> {
             String sqlstatement = "SELECT * FROM BUILDING";
             rs = DBConnector.getpStament(sqlstatement).executeQuery();
             while (rs.next()) {
-                Building bld = new Building(rs.getString(2), rs.getInt(3));
+                Building bld = new Building(rs.getInt(1),rs.getString(2));
                 blist.add(bld);
             }
         } catch (ClassNotFoundException | SQLException ex) {
@@ -107,7 +103,6 @@ public class BuildingDBOImpl implements CRUD<Building> {
         } finally {
             DBConnector.closeStreams(ps, rs);
         }
-
         return blist;
     }
 

@@ -1,5 +1,4 @@
 package com.confrenseroom.dboa.impl;
-
 import com.confrenseroom.dbconncetion.DBConnector;
 import com.confrenseroom.dboa.CRUD;
 import com.confrenseroom.model.User;

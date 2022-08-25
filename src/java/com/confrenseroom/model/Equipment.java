@@ -7,10 +7,17 @@ package com.confrenseroom.model;
 public class Equipment {
     private int equipmentID;
     private String equipmntName;
+    private Status status;
 
-    public Equipment(int equipmentID, String equipmntName) {
+    public Equipment(int equipmentID, String equipmntName, Status status) {
         this.equipmentID = equipmentID;
         this.equipmntName = equipmntName;
+        this.status = status;
+    }
+
+    public Equipment(String equipmntName, Status status) {
+        this.equipmntName = equipmntName;
+        this.status = status;
     }
 
     public int getEquipmentID() {
@@ -29,9 +36,17 @@ public class Equipment {
         this.equipmntName = equipmntName;
     }
 
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
     @Override
     public String toString() {
-        return "Equipment{" + "equipmentID=" + equipmentID + ", equipmntName=" + equipmntName + '}';
+        return "Equipment{" + "equipmentID=" + equipmentID + ", equipmntName=" + equipmntName + ", status=" + status + '}';
     }
-    
+
 }

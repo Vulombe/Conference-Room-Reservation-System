@@ -3,6 +3,7 @@ package com.confrenseroom.dboa.impl;
 import com.confrenseroom.dbconncetion.DBConnector;
 import com.confrenseroom.dboa.CRUD;
 import com.confrenseroom.model.Equipment;
+import com.confrenseroom.model.Status;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -42,10 +43,16 @@ public class EquipmentDBOImpl implements CRUD<Equipment> {
     public Equipment read(String name) {
         Equipment eqmnt = null;
         try {
+            Status status;
             String sqlstatement = "SELECT * FROM EQUIPMENT";
             rs = DBConnector.getpStament(sqlstatement).executeQuery();
             if (rs.next()) {
-                eqmnt = new Equipment(rs.getInt(1), rs.getString(2));
+                if (rs.getString(3).equalsIgnoreCase("available")) {
+                    status = Status.AVAILABLE;
+                } else {
+                    status = Status.NOTAVAILABLE;
+                }
+                eqmnt = new Equipment(rs.getInt(1), rs.getString(2), status);
             }
         } catch (ClassNotFoundException | SQLException ex) {
             System.out.println(ex.getMessage());
@@ -93,10 +100,17 @@ public class EquipmentDBOImpl implements CRUD<Equipment> {
     public List<Equipment> list() {
         List<Equipment> elist = new ArrayList<>();
         try {
+            Status status;
+            Equipment eqmnt;
             String sqlstatement = "SELECT * FROM EQUIPMENT";
             rs = DBConnector.getpStament(sqlstatement).executeQuery();
             while (rs.next()) {
-                Equipment eqmnt = new Equipment(rs.getInt(1), rs.getString(2));
+                if (rs.getString(3).equalsIgnoreCase("available")) {
+                    status = Status.AVAILABLE;
+                } else {
+                    status = Status.NOTAVAILABLE;
+                }
+                eqmnt = new Equipment(rs.getInt(1), rs.getString(2), status);
                 elist.add(eqmnt);
             }
         } catch (ClassNotFoundException | SQLException ex) {

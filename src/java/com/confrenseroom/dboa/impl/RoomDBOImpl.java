@@ -26,14 +26,11 @@ public class RoomDBOImpl implements CRUD<Room> {
     public boolean create(Room r) {
         boolean isCreated = false;
         try {
-            ps = DBConnector.getpStament("INSERT INTO ROOM(name,capacity,status,equipID)VALUES(?,?,?,?)");
+            ps = DBConnector.getpStament("INSERT INTO ROOM(name,capacity,status,buildID)VALUES(?,?,?,null)");
             ps.setString(1, r.getRoomName());
             ps.setInt(2, r.getCapacity());
             ps.setString(3, r.getStatus().toString());
-            ps.setInt(4, r.getEquipmentID());
-            if (ps.executeUpdate() > 1) {
-                isCreated = true;
-            }
+            isCreated = ps.executeUpdate()>0;
         } catch (ClassNotFoundException | SQLException ex) {
             System.out.println(ex.getMessage());
         } finally {
@@ -50,6 +47,7 @@ public class RoomDBOImpl implements CRUD<Room> {
             String sqlstatement = "SELECT * FROM ROOM";
             rs = DBConnector.getpStament(sqlstatement).executeQuery();
             if (rs.next()) {
+                int roomID = rs.getInt(1);
                 String roomName = rs.getString(2);
                 int capacity = rs.getInt(3);
                 Status status;
@@ -59,8 +57,7 @@ public class RoomDBOImpl implements CRUD<Room> {
                 } else {
                     status = Status.NOTAVAILABLE;
                 }
-                int equipmentID = rs.getInt(5);
-                room = new Room(roomName, capacity, status, equipmentID);
+                room = new Room(roomID,roomName, capacity, null,status);
 
             }
         } catch (ClassNotFoundException | SQLException ex) {
@@ -114,7 +111,7 @@ public class RoomDBOImpl implements CRUD<Room> {
             String sqlstatement = "SELECT * FROM ROOM";
             rs = DBConnector.getpStament(sqlstatement).executeQuery();
             while (rs.next()) {
-                //Room(
+                int roomID = rs.getInt(1);
                 String roomName = rs.getString(2);
                 int capacity = rs.getInt(3);
                 Status status;
@@ -124,8 +121,7 @@ public class RoomDBOImpl implements CRUD<Room> {
                 } else {
                     status = Status.NOTAVAILABLE;
                 }
-                int equipmentID = rs.getInt(5);
-                Room room = new Room(roomName, capacity, status, equipmentID);
+                Room room = new Room(roomID,roomName, capacity, null,status);
                 rlist.add(room);
             }
         } catch (ClassNotFoundException | SQLException ex) {

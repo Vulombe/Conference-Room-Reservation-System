@@ -9,23 +9,24 @@ public class Room {
     private int roomID;
     private String roomName;
     private int capacity;
+    private String buildingName;
     private Status status;
-    private int equipmentID;
 
-    public Room(String roomName, int capacity, Status status, int equipmentID) {
-        this.roomName = roomName;
-        this.capacity = capacity;
-        this.status = status;
-        this.equipmentID = equipmentID;
-    }
-
-    public Room(int roomID, String roomName, int capacity, Status status, int equipmentID) {
+    public Room(int roomID, String roomName, int capacity, String building, Status status) {
         this.roomID = roomID;
         this.roomName = roomName;
         this.capacity = capacity;
+        this.buildingName = building;
         this.status = status;
-        this.equipmentID = equipmentID;
     }
+
+    public Room(String roomName, int capacity, String building, Status status) {
+        this.roomName = roomName;
+        this.capacity = capacity;
+        this.buildingName = building;
+        this.status = status;
+    }
+   
 
     public int getRoomID() {
         return roomID;
@@ -51,14 +52,6 @@ public class Room {
         this.capacity = capacity;
     }
 
-    public int getEquipmentID() {
-        return equipmentID;
-    }
-
-    public void setEquipmentID(int equipmentID) {
-        this.equipmentID = equipmentID;
-    }
-
     public Status getStatus() {
         return status;
     }
@@ -67,9 +60,16 @@ public class Room {
         this.status = status;
     }
 
-    @Override
-    public String toString() {
-        return "Room{" + "roomID=" + roomID + ", roomName=" + roomName + ", capacity=" + capacity + ", equipmentID=" + equipmentID + '}';
+    public String getBuildingName() {
+        return buildingName;
     }
 
+    public void setBuildingName(String buildingName) {
+        this.buildingName = buildingName;
+    }
+
+    @Override
+    public String toString() {
+        return "Room{" + "roomID=" + roomID + ", roomName=" + roomName + ", capacity=" + capacity + ", building=" + buildingName + ", status=" + status + '}';
+    }
 }

@@ -4,15 +4,14 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/mcdav/Documents/NetBeansProjects/Conference-Room-Reservation-System/src/java/com/confrenseroom/model/Equipment.java</file>
-            <file>file:/C:/Users/mcdav/Documents/NetBeansProjects/Conference-Room-Reservation-System/src/java/com/confrenseroom/model/User.java</file>
-            <file>file:/C:/Users/mcdav/Documents/NetBeansProjects/Conference-Room-Reservation-System/test/com/confrerenceroom/test/dbo/CRUDTest.java</file>
-            <file>file:/C:/Users/mcdav/Documents/NetBeansProjects/Conference-Room-Reservation-System/src/java/com/confrenseroom/dboa/impl/UserDBOImpl.java</file>
+            <file>file:/C:/Users/mcdav/Documents/NetBeansProjects/Conference-Room-Reservation-System/test/com/confrerenceroom/test/dbo/TestEquipment.java</file>
             <file>file:/C:/Users/mcdav/Documents/NetBeansProjects/Conference-Room-Reservation-System/src/java/com/confrenseroom/dboa/impl/EquipmentDBOImpl.java</file>
+            <file>file:/C:/Users/mcdav/Documents/NetBeansProjects/Conference-Room-Reservation-System/test/com/confrerenceroom/test/dbo/TestUser.java</file>
             <file>file:/C:/Users/mcdav/Documents/NetBeansProjects/Conference-Room-Reservation-System/src/java/com/confrenseroom/dboa/impl/RoomDBOImpl.java</file>
-            <file>file:/C:/Users/mcdav/Documents/NetBeansProjects/Conference-Room-Reservation-System/src/java/com/confrenseroom/model/Status.java</file>
-            <file>file:/C:/Users/mcdav/Documents/NetBeansProjects/Conference-Room-Reservation-System/src/java/com/confrenseroom/dbconncetion/DBConnector.java</file>
+            <file>file:/C:/Users/mcdav/Documents/NetBeansProjects/Conference-Room-Reservation-System/test/com/confrerenceroom/test/dbo/TestRoom.java</file>
+            <file>file:/C:/Users/mcdav/Documents/NetBeansProjects/Conference-Room-Reservation-System/src/java/com/confrenseroom/model/Room.java</file>
             <file>file:/C:/Users/mcdav/Documents/NetBeansProjects/Conference-Room-Reservation-System/src/java/com/confrenseroom/dboa/impl/BuildingDBOImpl.java</file>
-            <file>file:/C:/Users/mcdav/Documents/NetBeansProjects/Conference-Room-Reservation-System/src/java/com/confrenseroom/dboa/CRUD.java</file>
+            <file>file:/C:/Users/mcdav/Documents/NetBeansProjects/Conference-Room-Reservation-System/src/java/com/confrenseroom/model/Building.java</file>
         </group>
     </open-files>
 </project-private>
