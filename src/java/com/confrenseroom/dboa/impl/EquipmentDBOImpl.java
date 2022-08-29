@@ -23,11 +23,10 @@ public class EquipmentDBOImpl implements CRUD<Equipment> {
     public boolean create(Equipment e) {
         boolean isCreated = false;
         try {
-            ps = DBConnector.getpStament("INSERT INTO EQUIPMENT(name)VALUES(?)");
+            ps = DBConnector.getpStament("INSERT INTO EQUIPMENT(name,status)VALUES(?,?)");
             ps.setString(1, e.getEquipmntName());
-            if (ps.executeUpdate() > 1) {
-                isCreated = true;
-            }
+            ps.setString(2, e.getStatus().toString());
+            isCreated = ps.executeUpdate()>0;
         } catch (ClassNotFoundException | SQLException ex) {
             System.out.println(ex.getMessage());
         } finally {
@@ -37,6 +36,29 @@ public class EquipmentDBOImpl implements CRUD<Equipment> {
     }
 
     @Override
+    public Equipment readById(int id) {
+        Equipment eqmnt = null;
+        try {
+            Status status;
+            String sqlstatement = "SELECT * FROM EQUIPMENT WHERE EQUIPID=?";
+            ps = DBConnector.getpStament(sqlstatement);
+            ps.setInt(1,id);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                if (rs.getString(3).equalsIgnoreCase("available")) {
+                    status = Status.AVAILABLE;
+                } else {
+                    status = Status.NOTAVAILABLE;
+                }
+                eqmnt = new Equipment(rs.getInt(1), rs.getString(2), status);
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            System.out.println(ex.getMessage());
+        } finally {
+            DBConnector.closeStreams(ps, rs);
+        }
+        return eqmnt;
+    }
     public Equipment read(String name) {
         Equipment eqmnt = null;
         try {
@@ -62,12 +84,13 @@ public class EquipmentDBOImpl implements CRUD<Equipment> {
     @Override
     public boolean update(Equipment eqpmnt) {
         boolean updated = false;
-        String statment = "update equipment set equipID=?, name=? where name=?";
+        String statment = "update equipment set equipID=?, name=?, status=? where equipID=?";
         try {
             ps = DBConnector.getpStament(statment);
             ps.setInt(1, eqpmnt.getEquipmentID());
             ps.setString(2, eqpmnt.getEquipmntName());
-            ps.setString(3, eqpmnt.getEquipmntName());
+            ps.setString(3, eqpmnt.getStatus().toString());
+            ps.setInt(4, eqpmnt.getEquipmentID());
             updated = ps.executeUpdate() > 0;
         } catch (ClassNotFoundException | SQLException ex) {
             System.out.println(ex.getMessage());

@@ -37,8 +37,10 @@ public class BuildingDBOImpl implements CRUD<Building> {
     public Building read(String name) {
         Building bld = null;
         try {
-            String sqlstatement = "SELECT * FROM BUILDING";
-            rs = DBConnector.getpStament(sqlstatement).executeQuery();
+            String sqlstatement = "SELECT * FROM BUILDING WHERE NAME=?";
+            ps = DBConnector.getpStament(sqlstatement);
+            ps.setString(1, name);
+            rs = ps.executeQuery();
             if (rs.next()) {
                 bld = new Building(rs.getInt(1),rs.getString(2));
             }
@@ -51,14 +53,14 @@ public class BuildingDBOImpl implements CRUD<Building> {
     }
 
     @Override
-    public boolean update(Building name) {
+    public boolean update(Building bld) {
         boolean updated = false;
-        String statment = "update building set ID=?, name=?,roomID=? where name=?";
+        String statment = "update building set buildID=?, name=? where name=?";
         try {
             ps = DBConnector.getpStament(statment);
-            ps.setInt(1, name.getId());
-            ps.setString(2, name.getBuildingName());
-            ps.setString(4, name.getBuildingName());
+            ps.setInt(1, bld.getId());
+            ps.setString(2, bld.getBuildingName());
+            ps.setString(3, bld.getBuildingName());
             updated = ps.executeUpdate() > 0;
         } catch (ClassNotFoundException | SQLException ex) {
             System.out.println(ex.getMessage());
@@ -101,6 +103,11 @@ public class BuildingDBOImpl implements CRUD<Building> {
             DBConnector.closeStreams(ps, rs);
         }
         return blist;
+    }
+
+    @Override
+    public Building readById(int id) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
 }

@@ -23,7 +23,7 @@ public class RoomDBOImpl implements CRUD<Room> {
     public boolean create(Room r) {
         boolean isCreated = false;
         try {
-            ps = DBConnector.getpStament("INSERT INTO ROOM(name,capacity,status,buildID)VALUES(?,?,?,null)");
+            ps = DBConnector.getpStament("INSERT INTO ROOM(name,capacity,status,buildID)VALUES(?,?,?,102)");
             ps.setString(1, r.getRoomName());
             ps.setInt(2, r.getCapacity());
             ps.setString(3, r.getStatus().toString());
@@ -41,20 +41,23 @@ public class RoomDBOImpl implements CRUD<Room> {
     public Room read(String name) {
         Room room = null;
         try {
-            String sqlstatement = "SELECT * FROM ROOM";
-            rs = DBConnector.getpStament(sqlstatement).executeQuery();
+            String sqlstatement = "SELECT * FROM ROOM WHERE NAME=?";
+            ps = DBConnector.getpStament(sqlstatement);
+            ps.setString(1, name);
+            rs = ps.executeQuery();
             if (rs.next()) {
                 int roomID = rs.getInt(1);
                 String roomName = rs.getString(2);
                 int capacity = rs.getInt(3);
                 Status status;
                 String getstatus = rs.getString(4);
+                int bldID = rs.getInt(5);
                 if (getstatus.equalsIgnoreCase("AVAILABLE")) {
                     status = Status.AVAILABLE;
                 } else {
                     status = Status.NOTAVAILABLE;
                 }
-                room = new Room(roomID,roomName, capacity, null,status);
+                room = new Room(roomID,roomName, capacity, bldID,status);
 
             }
         } catch (ClassNotFoundException | SQLException ex) {
@@ -113,12 +116,13 @@ public class RoomDBOImpl implements CRUD<Room> {
                 int capacity = rs.getInt(3);
                 Status status;
                 String getstatus = rs.getString(4);
+                int bldID = rs.getInt(5);
                 if (getstatus.equalsIgnoreCase("AVAILABLE")) {
                     status = Status.AVAILABLE;
                 } else {
                     status = Status.NOTAVAILABLE;
                 }
-                Room room = new Room(roomID,roomName, capacity, null,status);
+                Room room = new Room(roomID,roomName, capacity, bldID,status);
                 rlist.add(room);
             }
         } catch (ClassNotFoundException | SQLException ex) {
@@ -127,6 +131,11 @@ public class RoomDBOImpl implements CRUD<Room> {
             DBConnector.closeStreams(ps, rs);
         }
         return rlist;
+    }
+
+    @Override
+    public Room readById(int id) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
 }

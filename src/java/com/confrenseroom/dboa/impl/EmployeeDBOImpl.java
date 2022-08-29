@@ -42,7 +42,7 @@ public class EmployeeDBOImpl implements CRUD<Employee> {
     public Employee read(String id) {
         Employee emp = null;
         try {
-            String sqlstatement = "SELECT * FROM EMPLOYEE WHERE EMAILADDRESS=?";
+            String sqlstatement = "SELECT * FROM EMPLOYEE WHERE EMPID=?";
             ps = DBConnector.getpStament(sqlstatement);
             ps.setString(1, id);
             rs = ps.executeQuery();
@@ -121,6 +121,11 @@ public class EmployeeDBOImpl implements CRUD<Employee> {
             DBConnector.closeStreams(ps, rs);
         }
         return ulist;
+    }
+
+    @Override
+    public Employee readById(int id) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
 }

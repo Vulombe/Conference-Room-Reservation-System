@@ -9,10 +9,10 @@ public class Room {
     private int roomID;
     private String roomName;
     private int capacity;
-    private String buildingName;
+    private int buildingName;
     private Status status;
 
-    public Room(int roomID, String roomName, int capacity, String building, Status status) {
+    public Room(int roomID, String roomName, int capacity, int building, Status status) {
         this.roomID = roomID;
         this.roomName = roomName;
         this.capacity = capacity;
@@ -20,7 +20,7 @@ public class Room {
         this.status = status;
     }
 
-    public Room(String roomName, int capacity, String building, Status status) {
+    public Room(String roomName, int capacity, int building, Status status) {
         this.roomName = roomName;
         this.capacity = capacity;
         this.buildingName = building;
@@ -60,11 +60,11 @@ public class Room {
         this.status = status;
     }
 
-    public String getBuildingName() {
+    public int getBuildingName() {
         return buildingName;
     }
 
-    public void setBuildingName(String buildingName) {
+    public void setBuildingName(int buildingName) {
         this.buildingName = buildingName;
     }
 

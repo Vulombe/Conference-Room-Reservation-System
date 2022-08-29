@@ -129,4 +129,9 @@ public class UserDBOImpl implements CRUD<User> {
         return ulist;
     }
 
+    @Override
+    public User readById(int id) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
 }
