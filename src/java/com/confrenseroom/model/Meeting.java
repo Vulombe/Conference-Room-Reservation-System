@@ -9,7 +9,7 @@ import java.util.Date;
  * @author MCDAVE MAKHUBELE
  */
 public class Meeting {
-     private int meetID;
+    private int meetID;
     private LocalDate date;
     private LocalTime startTime;
     private LocalTime endTime;

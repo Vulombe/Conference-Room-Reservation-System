@@ -2,6 +2,11 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/C:/Users/mcdav/Documents/NetBeansProjects/Conference-Room-Reservation-System/src/java/com/confrenseroom/model/Meeting.java</file>
+            <file>file:/C:/Users/mcdav/Documents/NetBeansProjects/Conference-Room-Reservation-System/test/com/confrerenceroom/test/dbo/TestMeeting.java</file>
+            <file>file:/C:/Users/mcdav/Documents/NetBeansProjects/Conference-Room-Reservation-System/src/java/com/confrenseroom/dboa/impl/RoomDBOImpl.java</file>
+            <file>file:/C:/Users/mcdav/Documents/NetBeansProjects/Conference-Room-Reservation-System/src/java/com/confrenseroom/dboa/impl/MeetingDBOImpl.java</file>
+        </group>
     </open-files>
 </project-private>
