@@ -26,7 +26,7 @@ public class EquipmentDBOImpl implements CRUD<Equipment> {
             ps = DBConnector.getpStament("INSERT INTO EQUIPMENT(name,status)VALUES(?,?)");
             ps.setString(1, e.getEquipmntName());
             ps.setString(2, e.getStatus().toString());
-            isCreated = ps.executeUpdate()>0;
+            isCreated = ps.executeUpdate() > 0;
         } catch (ClassNotFoundException | SQLException ex) {
             System.out.println(ex.getMessage());
         } finally {
@@ -42,7 +42,7 @@ public class EquipmentDBOImpl implements CRUD<Equipment> {
             Status status;
             String sqlstatement = "SELECT * FROM EQUIPMENT WHERE EQUIPID=?";
             ps = DBConnector.getpStament(sqlstatement);
-            ps.setInt(1,id);
+            ps.setInt(1, id);
             rs = ps.executeQuery();
             if (rs.next()) {
                 if (rs.getString(3).equalsIgnoreCase("available")) {
@@ -59,6 +59,8 @@ public class EquipmentDBOImpl implements CRUD<Equipment> {
         }
         return eqmnt;
     }
+
+    @Override
     public Equipment read(String name) {
         Equipment eqmnt = null;
         try {

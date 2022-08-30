@@ -42,7 +42,7 @@ public class BuildingDBOImpl implements CRUD<Building> {
             ps.setString(1, name);
             rs = ps.executeQuery();
             if (rs.next()) {
-                bld = new Building(rs.getInt(1),rs.getString(2));
+                bld = new Building(rs.getInt(1), rs.getString(2));
             }
         } catch (ClassNotFoundException | SQLException ex) {
             System.out.println(ex.getMessage());
@@ -94,7 +94,7 @@ public class BuildingDBOImpl implements CRUD<Building> {
             String sqlstatement = "SELECT * FROM BUILDING";
             rs = DBConnector.getpStament(sqlstatement).executeQuery();
             while (rs.next()) {
-                Building bld = new Building(rs.getInt(1),rs.getString(2));
+                Building bld = new Building(rs.getInt(1), rs.getString(2));
                 blist.add(bld);
             }
         } catch (ClassNotFoundException | SQLException ex) {
@@ -109,5 +109,4 @@ public class BuildingDBOImpl implements CRUD<Building> {
     public Building readById(int id) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-
 }

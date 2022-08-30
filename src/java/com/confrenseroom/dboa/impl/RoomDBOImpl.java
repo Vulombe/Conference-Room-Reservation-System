@@ -27,7 +27,7 @@ public class RoomDBOImpl implements CRUD<Room> {
             ps.setString(1, r.getRoomName());
             ps.setInt(2, r.getCapacity());
             ps.setString(3, r.getStatus().toString());
-            isCreated = ps.executeUpdate()>0;
+            isCreated = ps.executeUpdate() > 0;
         } catch (ClassNotFoundException | SQLException ex) {
             System.out.println(ex.getMessage());
         } finally {
@@ -57,7 +57,7 @@ public class RoomDBOImpl implements CRUD<Room> {
                 } else {
                     status = Status.NOTAVAILABLE;
                 }
-                room = new Room(roomID,roomName, capacity, bldID,status);
+                room = new Room(roomID, roomName, capacity, bldID, status);
 
             }
         } catch (ClassNotFoundException | SQLException ex) {
@@ -122,7 +122,7 @@ public class RoomDBOImpl implements CRUD<Room> {
                 } else {
                     status = Status.NOTAVAILABLE;
                 }
-                Room room = new Room(roomID,roomName, capacity, bldID,status);
+                Room room = new Room(roomID, roomName, capacity, bldID, status);
                 rlist.add(room);
             }
         } catch (ClassNotFoundException | SQLException ex) {

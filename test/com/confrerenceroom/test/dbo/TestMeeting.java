@@ -16,9 +16,9 @@ import java.time.LocalTime;
  */
 public class TestMeeting {
     public static void main(String[] args) {
-        CRUD<Employee>  eCrud = new EmployeeDBOImpl();
-        CRUD<Room>  rCrud = new RoomDBOImpl();
-        CRUD<Meeting> mCrud = new MeetingDBOImpl();
+//        CRUD<Employee>  eCrud = new EmployeeDBOImpl();
+//        CRUD<Room>  rCrud = new RoomDBOImpl();
+//        CRUD<Meeting> mCrud = new MeetingDBOImpl();
 //        Employee employee = eCrud.read("25005");
 //        Room room = rCrud.read("EAST023B");
 //        LocalDate date = LocalDate.now();
@@ -27,7 +27,7 @@ public class TestMeeting {
 //        Meeting meeting = new Meeting(date,st,et,50,room.getRoomID(),employee.getEmpID());
 //        boolean create = mCrud.create(meeting);
 //        System.out.println("Create Status is " + create);
-        //Read Meeting
+//        Read Meeting
 //        Meeting  read = mCrud.readById(5);
 //        read.setAttendies(40);
 //        Room room = rCrud.read("EAST022B");
@@ -38,14 +38,14 @@ public class TestMeeting {
 //                                +"\nNumber of Attendies: " +read.getAttendies()
 //                                +"\nMeeting Holder: " + employee.getFullName()
 //                                +"\nMeeting Held at Room: " + room.getRoomName());
-        //Update Meeting
+//        Update Meeting
 //        Meeting  read = mCrud.readById(1);
 //        read.setAttendies(20);
 //        boolean update  = mCrud.update(read);
 //        System.out.println("Update Status is: " +update);
-        //Delete Meeting
-        MeetingDBOImpl delt = new MeetingDBOImpl();
-        boolean delete = delt.delete(5);
-        System.out.println("Delete Status is " + delete);
+//        Delete Meeting
+//        MeetingDBOImpl delt = new MeetingDBOImpl();
+//        boolean delete = delt.delete(5);
+//        System.out.println("Delete Status is " + delete);
     }
 }

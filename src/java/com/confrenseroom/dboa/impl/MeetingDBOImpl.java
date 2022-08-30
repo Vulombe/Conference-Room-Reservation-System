@@ -55,7 +55,7 @@ public class MeetingDBOImpl implements CRUD<Meeting> {
             String statement = "SELECT * FROM MEETING where meetID=?";
             ps = DBConnector.getpStament(statement);
             ps.setInt(1, id);
-            rs =ps.executeQuery();
+            rs = ps.executeQuery();
             if (rs.next()) {
                 int mid = rs.getInt(1);
                 LocalDate date = rs.getDate(2).toLocalDate();
@@ -105,20 +105,21 @@ public class MeetingDBOImpl implements CRUD<Meeting> {
         boolean delete = false;
         return delete;
     }
+
     public boolean delete(int id) {
         boolean delete = false;
-          try {
-              String statement = "DELETE FROM MEETING where meetID = ?";
-              ps = DBConnector.getpStament(statement);
-              ps.setInt(1, id);
-              delete = ps.executeUpdate()>0;
-        }catch(SQLException | ClassNotFoundException ex)
-        {
-        }finally{
+        try {
+            String statement = "DELETE FROM MEETING where meetID = ?";
+            ps = DBConnector.getpStament(statement);
+            ps.setInt(1, id);
+            delete = ps.executeUpdate() > 0;
+        } catch (SQLException | ClassNotFoundException ex) {
+        } finally {
             DBConnector.closeStreams(ps, rs);
         }
         return delete;
     }
+
     @Override
     public List<Meeting> list() {
         List<Meeting> mList = new ArrayList<>();
@@ -150,9 +151,4 @@ public class MeetingDBOImpl implements CRUD<Meeting> {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 }
-//   {
-//        }catch(SQLException | ClassNotFoundException ex)
-//        {
-//        }finally{
-//            DBConnector.closeStreams(ps, rs);
-//        }
+
