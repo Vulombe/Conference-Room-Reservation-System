@@ -15,6 +15,10 @@ public class Equipment {
         this.status = status;
     }
 
+    public Equipment(int equipmentID) {
+        this.equipmentID = equipmentID;
+    }
+
     public Equipment(String equipmntName, Status status) {
         this.equipmntName = equipmntName;
         this.status = status;

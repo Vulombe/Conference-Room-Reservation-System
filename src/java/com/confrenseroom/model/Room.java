@@ -12,6 +12,10 @@ public class Room {
     private int buildingName;
     private Status status;
 
+    public Room(String roomName) {
+        this.roomName = roomName;
+    }
+
     public Room(int roomID, String roomName, int capacity, int building, Status status) {
         this.roomID = roomID;
         this.roomName = roomName;

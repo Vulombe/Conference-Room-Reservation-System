@@ -17,6 +17,10 @@ public class Meeting {
     private int roomID;
     private String empID;
 
+    public Meeting(int meetID) {
+        this.meetID = meetID;
+    }
+
     public Meeting(LocalDate date, LocalTime startTime, LocalTime endTime, int attendies, int roomID, String empID) {
         this.date = date;
         this.startTime = startTime;
