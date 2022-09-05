@@ -40,6 +40,7 @@ public class MainController extends HttpServlet {
         RmServiceImpl rmCrudobj = new RmServiceImpl();
         CRUDService<Equipment> eqCrudobj = new EqServiceImpl();
         CRUDService<Employee> emCrudobj = new EmServiceImpl();
+        HttpSession session = request.getSession();
         RequestDispatcher dispatcher;
 
         String pro = request.getParameter("probe");
@@ -55,14 +56,16 @@ public class MainController extends HttpServlet {
                 Employee emp2 = null;
 
                 if (createEmp) {
+                    int attendies = Integer.parseInt(request.getParameter("attendies"));
                     emp2 = emCrudobj.readById(emp);
                     List<Room> available = rmCrudobj.getAll()
                             .stream()
                             .filter(room -> room.getStatus().equals(Status.AVAILABLE))
+//                            .filter(room->room.getCapacity()>=attendies)
                             .collect(toList());
 
                     Room first = available.get(0);
-                    int attendies = Integer.parseInt(request.getParameter("attendies"));
+                    
                     String stringDate = request.getParameter("mtday");
                     String stringStime = request.getParameter("mtstime");
                     String stringSEtime = request.getParameter("mtetime");
@@ -73,11 +76,13 @@ public class MainController extends HttpServlet {
                     boolean createM = mtCrudobj.create(met);
                     if (createM) {
                         request.setAttribute("met", met);
+                        request.setAttribute("emp", emp);
                         first.setStatus(Status.NOTAVAILABLE);
                         rmCrudobj.update(first);
                         dispatcher = request.getRequestDispatcher("roommanager.jsp");
                     } else {
-                        dispatcher = request.getRequestDispatcher("error.jsp");
+                        request.setAttribute("emp", emp);
+                        dispatcher = request.getRequestDispatcher("roommanager.jsp");
                     }
                     dispatcher.forward(request, response);
                 }
