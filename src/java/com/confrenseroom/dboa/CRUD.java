@@ -1,6 +1,7 @@
 
 package com.confrenseroom.dboa;
 
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -15,4 +16,5 @@ public interface CRUD<T> {
     boolean update(T t);
     boolean delete(String name);
     List<T> list();
+    public LinkedList<T> listLinked();
 }

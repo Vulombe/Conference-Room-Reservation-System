@@ -7,6 +7,7 @@ package com.confrenseroom.service.impl;
 import com.confrenseroom.dboa.impl.BuildingDBOImpl;
 import com.confrenseroom.model.Building;
 import com.confrenseroom.service.CRUDService;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -57,4 +58,9 @@ public class BldServiceImpl implements CRUDService<Building> {
     public List<Building> getAll() {
         return bldCrud.list();
      }
+
+    @Override
+    public LinkedList<Building> getlist() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }

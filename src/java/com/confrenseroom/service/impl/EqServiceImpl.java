@@ -8,6 +8,7 @@ import com.confrenseroom.dboa.CRUD;
 import com.confrenseroom.dboa.impl.EquipmentDBOImpl;
 import com.confrenseroom.model.Equipment;
 import com.confrenseroom.service.CRUDService;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -54,6 +55,11 @@ public class EqServiceImpl implements CRUDService<Equipment> {
     @Override
     public List<Equipment> getAll() {
         return eqpmntCrud.list();
+    }
+
+    @Override
+    public LinkedList<Equipment> getlist() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
 }

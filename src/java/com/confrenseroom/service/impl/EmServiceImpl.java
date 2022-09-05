@@ -3,6 +3,7 @@ package com.confrenseroom.service.impl;
 import com.confrenseroom.dboa.impl.EmployeeDBOImpl;
 import com.confrenseroom.model.Employee;
 import com.confrenseroom.service.CRUDService;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -83,6 +84,11 @@ public class EmServiceImpl implements CRUDService<Employee> {
     @Override
     public List<Employee> getAll() {
         return empCrud.list();
+    }
+
+    @Override
+    public LinkedList<Employee> getlist() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
 }

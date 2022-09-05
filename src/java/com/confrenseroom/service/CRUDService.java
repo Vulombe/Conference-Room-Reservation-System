@@ -1,5 +1,6 @@
 package com.confrenseroom.service;
 
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -13,4 +14,5 @@ public interface CRUDService<T> {
     boolean update(T t);
     boolean delete(T t);
     List<T> getAll();
+    LinkedList<T> getlist();
 }

@@ -8,6 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -23,7 +24,7 @@ public class RoomDBOImpl implements CRUD<Room> {
     public boolean create(Room r) {
         boolean isCreated = false;
         try {
-            ps = DBConnector.getpStament("INSERT INTO ROOM(name,capacity,status,buildID)VALUES(?,?,?,102)");
+            ps = DBConnector.getpStament("INSERT INTO ROOM(name,capacity,status,buildID)VALUES(?,?,?,101)");
             ps.setString(1, r.getRoomName());
             ps.setInt(2, r.getCapacity());
             ps.setString(3, r.getStatus().toString());
@@ -107,6 +108,35 @@ public class RoomDBOImpl implements CRUD<Room> {
     @Override
     public List<Room> list() {
         List<Room> rlist = new ArrayList<>();
+        try {
+            String sqlstatement = "SELECT * FROM ROOM";
+            rs = DBConnector.getpStament(sqlstatement).executeQuery();
+            while (rs.next()) {
+                int roomID = rs.getInt(1);
+                String roomName = rs.getString(2);
+                int capacity = rs.getInt(3);
+                Status status;
+                String getstatus = rs.getString(4);
+                int bldID = rs.getInt(5);
+                if (getstatus.equalsIgnoreCase("AVAILABLE")) {
+                    status = Status.AVAILABLE;
+                } else {
+                    status = Status.NOTAVAILABLE;
+                }
+                Room room = new Room(roomID, roomName, capacity, bldID, status);
+                rlist.add(room);
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            System.out.println(ex.getMessage());
+        } finally {
+            DBConnector.closeStreams(ps, rs);
+        }
+        return rlist;
+    }
+
+    @Override
+    public LinkedList<Room> listLinked() {
+        LinkedList<Room> rlist = new LinkedList<>();
         try {
             String sqlstatement = "SELECT * FROM ROOM";
             rs = DBConnector.getpStament(sqlstatement).executeQuery();

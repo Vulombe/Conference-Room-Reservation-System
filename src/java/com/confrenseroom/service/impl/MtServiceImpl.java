@@ -5,6 +5,7 @@ import com.confrenseroom.dboa.CRUD;
 import com.confrenseroom.dboa.impl.MeetingDBOImpl;
 import com.confrenseroom.model.Meeting;
 import com.confrenseroom.service.CRUDService;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -53,6 +54,11 @@ public class MtServiceImpl implements CRUDService<Meeting>{
     @Override
     public List<Meeting> getAll() {
         return mtngCrud.list();
+    }
+
+    @Override
+    public LinkedList<Meeting> getlist() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
     

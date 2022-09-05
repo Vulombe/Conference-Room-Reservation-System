@@ -8,6 +8,7 @@ import com.confrenseroom.dboa.CRUD;
 import com.confrenseroom.dboa.impl.RoomDBOImpl;
 import com.confrenseroom.model.Room;
 import com.confrenseroom.service.CRUDService;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -57,6 +58,11 @@ public class RmServiceImpl implements CRUDService<Room> {
     @Override
     public List<Room> getAll() {
         return roomCrud.list();
+    }
+
+    @Override
+    public LinkedList<Room> getlist() {
+        return roomCrud.listLinked();
     }
 
 }

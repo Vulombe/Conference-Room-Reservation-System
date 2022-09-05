@@ -11,6 +11,7 @@ import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -149,6 +150,11 @@ public class MeetingDBOImpl implements CRUD<Meeting> {
     @Override
     public Meeting read(String name) {
         throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public LinkedList<Meeting> listLinked() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }
 
