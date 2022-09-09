@@ -4,6 +4,15 @@
     Author     : MCDAVE MAKHUBELE
 --%>
 
+
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.stream.Collectors"%>
+<%@page import="com.confrenseroom.model.Status"%>
+<%@page import="com.confrenseroom.service.impl.RmServiceImpl"%>
+<%@page import="com.confrenseroom.service.impl.EmServiceImpl"%>
+<%@page import="com.confrenseroom.service.CRUDService"%>
+<%@page import="com.confrenseroom.model.Room"%>
+<%@page import="java.util.List"%>
 <%@page import="com.confrenseroom.model.Employee"%>
 <%@page import="com.confrenseroom.model.Meeting"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -21,6 +30,7 @@
         <title>JSP Page</title>
     </head>
     <body>
+
         <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
 
             <a href="#">
@@ -61,7 +71,7 @@
             </div>
         </nav>
         <!-- Section -->
-        <section class="bg-dark text-light p-3 p-lg-3 pt-lg-3 text-center">
+        <section class="bg-light text-dark p-3 p-lg-3 pt-lg-3 text-center">
             <div class="container">
                 <div class="align-items-center ">
                     <h2>
@@ -70,7 +80,7 @@
                     <img class="img-fluid w-1 rounded-circle" src="img/3.jpg" alt="">
                 </div>
         </section>
-        <section>
+        <section class="bg-info text-light p-5 p-lg-5 pt-lg-5 text-center">
             <div class="row">
                 <div class="col-sm-6">
                     <table class="table table-responsive" >
@@ -103,6 +113,39 @@
                                 out.print("<td>" + met.getAttendies() + " </td>");
                             %>
                         </tr>
+                    </table>
+                </div>
+                <div class="col-sm-5">
+                    <table class="table table-responsive" >
+
+                        <thead>
+                            <tr>
+                                <th>
+                                    Room Name
+                                </th>
+                                <th>
+                                    Room Capacity
+                                </th>
+                                <th>
+                                    Room Status
+                                </th>
+
+                            </tr></thead>
+                            <%
+                                CRUDService<Room> roomCrud = new RmServiceImpl();
+                                List<Room> rooms = (ArrayList) roomCrud.getAll();
+                                
+                                for (Room roomr : rooms) {
+                                    if(roomr.getStatus().equals(Status.AVAILABLE)){
+                                    out.print("<tr>");
+                                    out.print("<td>" + roomr.getRoomName() + " </td>");
+                                    out.print("<td>" + roomr.getCapacity() + " </td>");
+                                    out.print("<td>" + roomr.getStatus() + " </td>");
+                                    out.print("<tr>");
+                                }
+                                }
+                            %>
+                       
                     </table>
                 </div>
             </div>
